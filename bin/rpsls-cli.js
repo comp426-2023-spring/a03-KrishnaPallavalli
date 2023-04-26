@@ -1,24 +1,21 @@
 #!/usr/bin/env node
+
 import minimist from "minimist"
-import { rpsls } from "../lib/rpsls.js"
+import { rpsls } from "node-rpsls";
+
 const args = minimist(process.argv.slice(2));
+
 if (args.h || args.help) {
     displayHelp();
-    process.exit(0);
 }
 if (args.r || args.rules) {
     displayRules();
-    process.exit(0);
 }
-try{
-    console.log(JSON.stringify(rpsls(argument._[0])));
-} catch (error){
-    if (error instanceof RangeError){
-        displayRules();
-        process.exit();
-    }
+try {
+    console.log(JSON.stringify(rpsls(args._[0])));
+} catch (RangeError){
+    displayRules()
 }
-
 function displayHelp() {
     console.log(
         `Usage: node-rpsls [SHOT]
@@ -33,7 +30,7 @@ function displayHelp() {
           node-rpsls rock   Return JSON with results for RPSLS played against a simulated opponent.
                             e.g {"player":"rock","opponent":"Spock","result":"lose"}`
     );
-    process.exit(0)
+    process.exit(0);
 }
 function displayRules() {
     console.log(
@@ -49,5 +46,5 @@ function displayRules() {
         - Spock VAPORIZES Rock
         - Rock CRUSHES Scissors`
     );
-    process.exit(0)
+    process.exit(0);
 }

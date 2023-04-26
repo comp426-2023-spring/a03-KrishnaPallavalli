@@ -1,7 +1,10 @@
 #!/usr/bin/env node
+
 import minimist from "minimist";
-import { rps } from "../lib/rpsls.js";
+import { rps } from "node-rpsls";
+
 const args = minimist(process.argv.slice(2));
+
 if (args.h || args.help) {
     displayHelp();
     process.exit(0);
@@ -10,15 +13,12 @@ if (args.r || args.rules) {
     displayRules();
     process.exit(0);
 }
-try{
-    console.log(JSON.stringify(rps(argument._[0])));
-} catch (error){
-    if (error instanceof RangeError){
-        displayRules();
-        process.exit();
-    }
+try {
+    console.log(JSON.stringify(rps(args._[0])));
+} catch (RangeError){
+    displayRules()
+    process.exit(0)
 }
-
 function displayHelp(){
     console.log(
         `Usage: node-rps [SHOT]
@@ -33,12 +33,10 @@ function displayHelp(){
           node-rps rock   Return JSON with results for RPS played against a simulated opponent.
                           e.g {"player":"rock","opponent":"scissors","result":"win"}`
     );
-    process.exit(0)
 }
 function displayRules (){
     console.log(`Rules for Rock Paper Scissors:
         - Scissors CUTS Paper
         - Paper COVERS Rock
         - Rock CRUSHES Scissors`);
-        process.exit(0)
 }
