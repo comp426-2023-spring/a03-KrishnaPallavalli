@@ -10,8 +10,9 @@ if (args.r || args.rules) {
     displayRules();
     process.exit(0);
 }
+
 try {
-    console.log(JSON.stringify(rps(args._[0])));
+    console.log(JSON.stringify(rpsls(args._[0])));
 } catch (RangeError){
     displayRules()
     process.exit(0)
@@ -30,8 +31,8 @@ function displayHelp() {
           node-rpsls rock   Return JSON with results for RPSLS played against a simulated opponent.
                             e.g {"player":"rock","opponent":"Spock","result":"lose"}`
     );
+    process.exit(0)
 }
-
 function displayRules() {
     console.log(
         `Rules for the Lizard-Spock Expansion of Rock Paper Scissors:
@@ -46,4 +47,5 @@ function displayRules() {
         - Spock VAPORIZES Rock
         - Rock CRUSHES Scissors`
     );
+    process.exit(0)
 }
